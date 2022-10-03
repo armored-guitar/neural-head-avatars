@@ -58,11 +58,11 @@ def reenact_avatar(target_model: NHAOptimizer, driving_model: NHAOptimizer, targ
                 plt.close()
 
     os.makedirs(outpath, exist_ok=True)
-    os.system(f"ffmpeg -pattern_type glob -i {tmp_dir_pred}/'*.png' -c:v libx264 -preset slow  -profile:v high "
+    os.system(f"ffmpeg -framerate 30 -pattern_type glob -i '{tmp_dir_pred}/*.png' -vf 'crop=trunc(iw/2)*2:trunc(ih/2)*2' -c:v libx264 -preset slow  -profile:v high "
               f"-level:v 4.0 -pix_fmt yuv420p -crf 22 -codec:a aac {outpath}/Reenactment_pred.mp4 -y")
-    os.system(f"ffmpeg -pattern_type glob -i {tmp_dir_drive}/'*.png' -c:v libx264 -preset slow  -profile:v high "
+    os.system(f"ffmpeg -framerate 30 -pattern_type glob -i '{tmp_dir_drive}/*.png' -vf 'crop=trunc(iw/2)*2:trunc(ih/2)*2' -c:v libx264 -preset slow  -profile:v high "
               f"-level:v 4.0 -pix_fmt yuv420p -crf 22 -codec:a aac {outpath}/Reenactment_drive.mp4 -y")
-    os.system(f"ffmpeg  -i {outpath}/Reenactment_drive.mp4 -i {outpath}/Reenactment_pred.mp4 "
+    os.system(f"ffmpeg -i {outpath}/Reenactment_drive.mp4  -i {outpath}/Reenactment_pred.mp4 "
               f"-filter_complex hstack=inputs=2 {outpath}/Reenactment_combined.mp4 -y")
 
 

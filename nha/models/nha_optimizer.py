@@ -393,7 +393,7 @@ class NHAOptimizer(pl.LightningModule):
         N = len(iter(batch.values()).__next__())
         indices = batch.get("frame", None)
 
-        if indices is None:
+        if indices is None or any(indices >= self._neck_pose.shape[0]):
             ignore_pose = True
             ignore_expr = True
 
@@ -511,7 +511,7 @@ class NHAOptimizer(pl.LightningModule):
                 blur_radius=0,
                 faces_per_pixel=2,
                 bin_size=None,
-                max_faces_per_bin=None,
+                max_faces_per_bin=50000,
                 clip_barycentric_coords=False,
                 perspective_correct=True,
                 cull_backfaces=False,

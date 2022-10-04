@@ -18,7 +18,7 @@ Abstract: We present Neural Head Avatars, a novel neural representation that exp
 ## Installation
 
 - Install Python3.9 following the instruction on https://www.python.org/
-- ```git clone --recursive https://github.com/philgras/neural-head-avatars.git ```
+- ```git clone --recursive https://github.com/armored-guitar/neural-head-avatars.git ```
 - ```cd neural-head-avatars```
 - ```pip install -e .```
 - Add ```generic_model.pkl``` obtained from the [MPI website](https://flame.is.tue.mpg.de/) to ```./assets/flame```.
@@ -64,7 +64,7 @@ two of our subjects from the paper [here](https://edmond.mpdl.mpg.de/api/access/
 
 1. Video Preprocessing
    - If you would like to use your own video, make sure you installed the required dependencies from above.
-   - Run ```python python_scripts/video2dataset.py --video PATH_TO_VIDEO --out_path PATH_TO_OUTPUT_DIR```
+   - Run ```python python_scripts/video_to_dataset.py --video PATH_TO_VIDEO --out_path PATH_TO_OUTPUT_DIR```
     - Important: Make sure to crop the video tightly around the head as in the paper. Otherwise the generated ground truth is not as accurate and the optimization later on uses only a small part of each frame.
     <br>
     This script will automatically extract all necessary data including segmentations, normal maps and so on. While not beeing strictly necessary, we recommend using square videos captured at 25 fps at a resolution of 512x512 px.
